@@ -95,7 +95,7 @@ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admi
 kubectl patch deploy --namespace kube-system tiller-deploy -p'{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
 /usr/local/bin/helm repo add helm_charts https://raw.githubusercontent.com/saketh-linux/helm_charts/master/
 /usr/local/bin/helm repo update
-
+sleep 5
 echo "Installing Guest book app"
 /usr/local/bin/helm install helm_charts/guestbook
 if [ echo $? -eq 1 ]; then
@@ -133,6 +133,16 @@ kubectl apply -f elasticsearch_statefulset.yaml
 kubectl apply -f kibana.yaml
 kubectl apply -f fluentd.yml
 
+EOF
+}
+
+jenkins_install ()
+{
+cat <<- EOF
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+yum install jenkins  java-1.8.0-openjdk-devel git -y
+systemctl enable jenkins && systemctl restart jenkins
 EOF
 }
 
@@ -202,8 +212,14 @@ for i in 1 2 3; do
   gssh instance-$i -- 'sudo sh /var/tmp/cloud_prov.sh'
 done
 
-#install_app > app.sh
+install_app > app.sh
 
-#gcloud beta compute scp app.sh instance-1:/var/tmp --project $project --zone $zone
-#gssh instance-1 -- "sudo sh /var/tmp/app.sh"
+gcloud beta compute scp app.sh instance-1:/var/tmp --project $project --zone $zone
+gssh instance-1 -- "sudo sh /var/tmp/app.sh"
 
+jenkins_install > jenkins.sh
+
+gcloud beta compute scp jenkins.sh  instance-4:/var/tmp --project $project --zone $zone
+gssh instance-4 -- 'sudo sh /var/tmp/jenkins.sh'
+
+rm -f jenkins.sh cloud_prov.sh app.sh script.sh kubernetes.repo script.sh
