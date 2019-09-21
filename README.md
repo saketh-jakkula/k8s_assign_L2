@@ -20,13 +20,16 @@ Install gloud sdk on your local machine if you don't want to use google cloud sh
 3. gcloud init --console-only 
 4. Follow the steps to give gcloud sdk access to the GCP account and select the required project when prompted.  
 
+Run **gcloud compute project-info add-metadata --metadata enable-oslogin=TRUE** to configure ssh over gcloud command and we don't need to worry about generating/exchanging ssh keys.  
+
+
 ## Installations
 
 Clone this repository https://github.com/saketh-linux/k8s_assign_L2.git    
 
 ### Wrapper script
 Run **sh wrapper_l2.sh <project_name> <zone_name>**     
-This script delivers GCP instances, installs K8s cluster, installs helm, installs Guest book application and configures firewall rules, installs Prometheus and Grafana for monitoring and Dashboarding, installs EFK stack for centralized logging.  
+This script delivers 4 GCP instances, installs K8s cluster, installs helm, installs Guest book application and configures firewall rules, installs Prometheus and Grafana for monitoring and Dashboarding, installs EFK stack for centralized logging.  
 
 For simplicity it configured the master node to have static ip, which will be used to access the applications over the NodePort.  
 Example:  
@@ -37,5 +40,9 @@ http://34.70.54.239:30084/ - Kibana.
 
 Here 34.70.54.239 is the static IP reserved for my implementation.
 
-### Installing Guestbook with Jenkins.
+### Installing Guestbook through Jenkins.
 
+When you run wrapper.sh script it configures the 4th instance as a Jenkins servers. Follow the below steps to start Jenkins and create a Pipeine.  
+1. Run **gcloud compute instances list** and get the external ip address of the Jenkins server.  
+2. Access Jenkins through http://<ip-address>:8080, follow the instructions to install Jenkins.
+3. In the K8s cluster 
