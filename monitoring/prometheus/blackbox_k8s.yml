@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blackbox
+  template:
+    metadata:
+      name: blackbox-pod
+      labels:
+        app: blackbox
+    spec:
+      containers:
+      - image: sakethlinux/blackbox_exporter
+        name: blackbox-cont
+        ports:
+          - containerPort: 9115
+        volumeMounts:
+          - name: config-vol
+            mountPath: /config
+      volumes:
+        - name: config-vol
+          configMap:
+            name: blackbox-config
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blackbox-config
+data:
+  blackbox.yml: |-
+    modules:
+      http_2xx:
+        prober: http
+      http_post_2xx:
+        prober: http
+        http:
+          method: POST
+      tcp_connect:
+        prober: tcp
+      pop3s_banner:
+        prober: tcp
+        tcp:
+          query_response:
+          - expect: "^+OK"
+          tls: true
+          tls_config:
+            insecure_skip_verify: false
+      ssh_banner:
+        prober: tcp
+        tcp:
+          query_response:
+          - expect: "^SSH-2.0-"
+      irc_banner:
+        prober: tcp
+        tcp:
+          query_response:
+          - send: "NICK prober"
+          - send: "USER prober prober prober :prober"
+          - expect: "PING :([^ ]+)"
+            send: "PONG ${1}"
+          - expect: "^:[^ ]+ 001"
+      icmp:
+        prober: icmp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blackbox-service
+spec:
+  type: NodePort
+  selector:
+    app: blackbox
+  ports:
+    - port: 9115
+      nodePort: 30083
