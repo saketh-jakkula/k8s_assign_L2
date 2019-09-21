@@ -76,6 +76,11 @@ EOF
 install_app ()
 {
 cat <<- 'EOF'
+
+echo "creating jenkins SA"
+kubectl create sa jenkins
+kubectl create clusterrolebinding jenkins-cluster-rule --clusterrole=cluster-admin --serviceaccount=default:jenkins
+
 echo "setting development ns"
 kubectl create ns development
 kubectl config set-context development --namespace=development --cluster=kubernetes --user=kubernetes-admin
