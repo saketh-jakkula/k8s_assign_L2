@@ -45,4 +45,8 @@ Here 34.70.54.239 is the static IP reserved for my implementation.
 When you run wrapper.sh script it configures the 4th instance as a Jenkins servers. Follow the below steps to start Jenkins and create a Pipeine.  
 1. Run **gcloud compute instances list** and get the external ip address of the Jenkins server.  
 2. Access Jenkins through http://<ip-address>:8080, follow the instructions to install Jenkins.
-3. In the K8s cluster 
+3. Through wrapper.sh script a service account called jenkins has already been created. Note Token and CA info by running the below comands.  
+kubectl get sa jenkins -o=jsonpath={.secrets[0].name} -- gives the secret name.  
+kubectl get secret <secret> -o=jsonpath='{.data.token}' | base64 -d -- gives the token.  
+kubectl get secret <secret> -o yaml|grep ca.crt|awk -d':' '{print $2}'| base64 -d -- gives the CA key.  
+
