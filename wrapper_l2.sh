@@ -100,13 +100,13 @@ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admi
 kubectl patch deploy --namespace kube-system tiller-deploy -p'{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
 /usr/local/bin/helm repo add helm_charts https://raw.githubusercontent.com/saketh-linux/helm_charts/master/
 /usr/local/bin/helm repo update
-sleep 5
-echo "Installing Guest book app"
-/usr/local/bin/helm install helm_charts/guestbook
-if [ `echo $?` -eq 1 ]; then
-  echo "Installing app failed"
-  exit 1
-fi
+#sleep 5
+#echo "Installing Guest book app"
+#/usr/local/bin/helm install helm_charts/guestbook
+#if [ `echo $?` -eq 1 ]; then
+#  echo "Installing app failed"
+#  exit 1
+#fi
 
 echo "Install Prometheus/Grafana"
 cd ~
@@ -221,6 +221,7 @@ install_app > app.sh
 
 gcloud beta compute scp app.sh instance-1:/var/tmp --project $project --zone $zone
 gssh instance-1 -- "sudo sh /var/tmp/app.sh"
+gssh instance-1 -- 'sudo /usr/local/bin/helm install helm_charts/guestbook'
 
 jenkins_install > jenkins.sh
 
