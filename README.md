@@ -82,7 +82,7 @@ The above example of singlestat panel and Graph shows if the application is up/d
 ### Working with EFK
 Manifest files for this implemention can be found at Logging/.
 In this example prometheus can be accessed through http://34.70.54.239:30084/.   
-Navigate Discover-> under create index pattern enter "logstash-*" it will captre all log data in Elastic search cluster.
+Navigate Discover-> under create index pattern enter "logstash-*" it will capture all log data in Elastic search cluster.
 
 ## Details of cluster  
 This example creates a 3 node cluster wich 1 master and 2 nodes.  
