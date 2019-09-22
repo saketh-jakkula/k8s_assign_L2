@@ -68,4 +68,4 @@ More details of the application health can be viewed through Grafana.
 Manifest files for this implemention can be found at monitoring/grafana.
 In this example prometheus can be accessed through http://34.70.54.239:30082/.
 1. Access the Grafana site (admin/admin) are the user and password, add the new datastore prometheus pointing to prometheus link. 
-2. 
+2. ![alt text](https://github.com/saketh-linux/Pics/raw/master/sd.PNG)
