@@ -59,13 +59,14 @@ This script is capable to create environment needed for kubectl and helm. Once t
 Manifest files for this implemention can be found at monitoring/prometheus.
 In this example prometheus can be accessed through http://34.70.54.239:30081/.   
 Utilized kubernetes-sd-config to dynamically list the targets, this particular config can list apiserver, endpoints, cadvisor, nodes and pods.  
-Implemented Blackbox exporter to monitor health of the application.
-
+Implemented Blackbox exporter to monitor health of the application.  
+![alt text](https://github.com/saketh-linux/Pics/raw/master/sd.PNG)   
 A new configuration can be added to prometheus-config-map.yml, a watch container is configured which can restart pods when a config changes.  
 More details of the application health can be viewed through Grafana.
 
 ### Working with Grafana
 Manifest files for this implemention can be found at monitoring/grafana.
 In this example prometheus can be accessed through http://34.70.54.239:30082/.
-1. Access the Grafana site (admin/admin) are the user and password, add the new datastore prometheus pointing to prometheus link. 
-2. ![alt text](https://github.com/saketh-linux/Pics/raw/master/sd.PNG)
+1. Access the Grafana site (admin/admin) are the user and password, add the new datastore prometheus pointing to prometheus link.   
+2. Import new dashboards 315 for cluster monitoring, it shows cpu, memory and File system usage for cluster, nodes, pods and containers.   
+3. Import 3146 it is capable to show metrics of all the pods namespace wise. Select the namespace development to get the metrics of Guestbook application pods.  
