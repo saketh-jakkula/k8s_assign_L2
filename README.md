@@ -50,8 +50,17 @@ kubectl get secret <secret> -o=jsonpath='{.data.token}' | base64 -d -- gives the
 kubectl get secret <secret> -o yaml|grep ca.crt|awk -d':' '{print $2}'| base64 -d -- gives the CA key.**  
 3. Access the Jenkins URL with http://<Ipaddress>:8080 and create a new credentail, select secret text and enter the token.
 4. Install a new plugin Kubernetes Cli Plugin to connect to kuberntes cluster.
-5. Create a new pipeline and copy the content of the file install.groovy. Need to enter the secret id, server url and the CA KEY.
+5. Create a new pipeline and copy the content of the file install.groovy. You need to enter the secret id, server url and the CA KEY.
 
 This script is capable to create environment needed for kubectl and helm. Once the application is installed kubectl configs are cleared.
   
+### Working with Prometheus
+Manifest files for this implemention can be found at monitoring/prometheus.
+In this example prometheus can be accessed through http://34.70.54.239:30081/.   
+Utilized kubernetes-sd-config to dynamically list the targets, this particular config can list apiserver, endpoints, cadvisor, nodes and pods.  
+Implemented Blackbox exporter to monitor health of the application.  
+A new configuration can be added to prometheus-config-map.yml, a watch container is configured which can restart pods when a config changes.
+More details of the application can be viewed through Grafana.
+
+### Working with Grafana
 
