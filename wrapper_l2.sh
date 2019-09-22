@@ -103,7 +103,7 @@ kubectl patch deploy --namespace kube-system tiller-deploy -p'{"spec":{"template
 sleep 5
 echo "Installing Guest book app"
 /usr/local/bin/helm install helm_charts/guestbook
-if [ echo $? -eq 1 ]; then
+if [ `echo $?` -eq 1 ]; then
   echo "Installing app failed"
   exit 1
 fi
