@@ -67,8 +67,14 @@ More details of the application health can be viewed through Grafana.
 ### Working with Grafana
 Manifest files for this implemention can be found at monitoring/grafana.
 In this example prometheus can be accessed through http://34.70.54.239:30082/.
-1. Access the Grafana site (admin/admin) are the user and password, add the new datastore prometheus pointing to prometheus link.   
+1. Access the Grafana site admin/admin are the user/password, add the new datastore prometheus pointing to prometheus link.   
 2. Import new dashboards 315 for cluster monitoring, it shows cpu, memory and File system usage for cluster, nodes, pods and containers.   
 3. Import 3146 it is capable to show metrics of all the pods namespace wise. Select the namespace development to get the metrics of Guestbook application pods.  
 4. For Application health check(Black box exporter) create a custom dashboard.
-![alt text](https://github.com/saketh-linux/Pics/raw/master/grafana.PNG)
+![alt text](https://github.com/saketh-linux/Pics/raw/master/grafana.PNG)   
+The above example of singlestat panel and Graph shows if the application is up/down and time of status change.  
+
+## Details of cluster  
+This example creates a 3 node cluster wich 1 master and 2 nodes.  
+Installs Docker-18.09 and v1.15.1 of Kuberntes.  
+For dynamic provision to work gave full access to cloud apis, added cloud provider config to kubeadm and kubelet. These changes are done automatically by wrapper.sh script.  
