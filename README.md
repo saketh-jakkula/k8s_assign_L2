@@ -70,3 +70,5 @@ In this example prometheus can be accessed through http://34.70.54.239:30082/.
 1. Access the Grafana site (admin/admin) are the user and password, add the new datastore prometheus pointing to prometheus link.   
 2. Import new dashboards 315 for cluster monitoring, it shows cpu, memory and File system usage for cluster, nodes, pods and containers.   
 3. Import 3146 it is capable to show metrics of all the pods namespace wise. Select the namespace development to get the metrics of Guestbook application pods.  
+4. For Application health check(Black box exporter) create a custom dashboard.
+![alt text](https://github.com/saketh-linux/Pics/raw/master/grafana.PNG)
