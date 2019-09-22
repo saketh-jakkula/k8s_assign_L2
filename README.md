@@ -29,7 +29,7 @@ Clone this repository https://github.com/saketh-linux/k8s_assign_L2.git
 
 ### Wrapper script
 Run **sh wrapper_l2.sh <project_name> <zone_name>**     
-This script delivers 4 GCP instances, installs K8s cluster, installs helm, installs Guest book application and configures firewall rules, installs Prometheus and Grafana for monitoring and Dashboarding, installs EFK stack for centralized logging.  
+This script delivers 4 GCP instances, installs K8s cluster, installs helm, installs Guest book application and configures firewall rules, installs Prometheus and Grafana for monitoring and Dashboarding, installs EFK stack for centralized logging and installs required packages in Jenkins server.  
 
 For simplicity it configured the master node to have static ip, which will be used to access the applications over the NodePort.  
 Example:  
@@ -39,6 +39,7 @@ http://34.70.54.239:30082/ - Grafana.
 http://34.70.54.239:30084/ - Kibana.  
 
 Here 34.70.54.239 is the static IP reserved for my implementation.
+This cluster has 1 master and 2 nodes, script is capable to add the nodes to cluster with out manual intervention.
 
 ### Installing Guestbook through Jenkins.
 
@@ -59,8 +60,11 @@ Manifest files for this implemention can be found at monitoring/prometheus.
 In this example prometheus can be accessed through http://34.70.54.239:30081/.   
 Utilized kubernetes-sd-config to dynamically list the targets, this particular config can list apiserver, endpoints, cadvisor, nodes and pods.  
 Implemented Blackbox exporter to monitor health of the application.  
-A new configuration can be added to prometheus-config-map.yml, a watch container is configured which can restart pods when a config changes.
-More details of the application can be viewed through Grafana.
+A new configuration can be added to prometheus-config-map.yml, a watch container is configured which can restart pods when a config changes.  
+More details of the application health can be viewed through Grafana.
 
 ### Working with Grafana
-
+Manifest files for this implemention can be found at monitoring/grafana.
+In this example prometheus can be accessed through http://34.70.54.239:30082/.
+1. Access the Grafana site (admin/admin) are the user and password, add the new datastore prometheus pointing to prometheus link. 
+2. 
