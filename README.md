@@ -59,7 +59,8 @@ This script is capable to create environment needed for kubectl and helm. Once t
 Manifest files for this implemention can be found at monitoring/prometheus.
 In this example prometheus can be accessed through http://34.70.54.239:30081/.   
 Utilized kubernetes-sd-config to dynamically list the targets, this particular config can list apiserver, endpoints, cadvisor, nodes and pods.  
-Implemented Blackbox exporter to monitor health of the application.  
+Implemented Blackbox exporter to monitor health of the application.
+
 A new configuration can be added to prometheus-config-map.yml, a watch container is configured which can restart pods when a config changes.  
 More details of the application health can be viewed through Grafana.
 
