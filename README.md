@@ -73,6 +73,16 @@ In this example prometheus can be accessed through http://34.70.54.239:30082/.
 4. For Application health check(Black box exporter) create a custom dashboard.
 ![alt text](https://github.com/saketh-linux/Pics/raw/master/grafana.PNG)   
 The above example of singlestat panel and Graph shows if the application is up/down and time of status change.  
+ a) Navigate to Add Row-> Add panel -> single stat      
+ b) Under Metrics add a new prometheus query "probe_success{instance="http://34.70.54.239:30080",job="blackbox"}"    
+ c) In the options change the threshold to 0,1 and the Gauge min-0 and max-1.  
+ d) In value Mappings enter required ranges to show UP(0.5 - 1) or DOWN(0 - 0.5).
+    
+
+### Working with EFK
+Manifest files for this implemention can be found at Logging/.
+In this example prometheus can be accessed through http://34.70.54.239:30084/.
+1. 
 
 ## Details of cluster  
 This example creates a 3 node cluster wich 1 master and 2 nodes.  
