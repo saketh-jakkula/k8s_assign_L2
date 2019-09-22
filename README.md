@@ -88,3 +88,4 @@ Navigate Discover-> under create index pattern enter "logstash-*" it will captur
 This example creates a 3 node cluster wich 1 master and 2 nodes.  
 Installs Docker-18.09 and v1.15.1 of Kuberntes.  
 For dynamic provision to work gave full access to cloud apis, added cloud provider config to kubeadm and kubelet. These changes are done automatically by wrapper.sh script.  
+Enabled Oslogin option for GCP.   
