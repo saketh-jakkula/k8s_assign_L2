@@ -122,6 +122,7 @@ kubectl apply -f prometheus-service.yml
 kubectl apply -f blackbox_k8s.yml
 
 cd ../grafana
+kubectl apply -f grafana-sc.yml
 kubectl apply -f grafana-deployment.yml
 kubectl apply -f grafana-service.yml
 
